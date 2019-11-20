@@ -1,5 +1,19 @@
 package negocio;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aryel
@@ -125,7 +139,7 @@ public class JFPaciente extends javax.swing.JFrame {
         );
         paFotoLayout.setVerticalGroup(
             paFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -151,27 +165,24 @@ public class JFPaciente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(txtData, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(txtData)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rbMasculino)
                                 .addGap(18, 18, 18)
                                 .addComponent(rbFeminino))
                             .addComponent(txtEndereco)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cbPlanoSaude, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbPlanoSaude, 0, 0, Short.MAX_VALUE)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(33, 33, 33))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btUpload, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(paFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(paFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btUpload, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                                 .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,7 +194,7 @@ public class JFPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,15 +204,16 @@ public class JFPaciente extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbFeminino)
-                            .addComponent(rbMasculino)
-                            .addComponent(jLabel5))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbMasculino)
+                                .addComponent(jLabel5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(paFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,9 +235,19 @@ public class JFPaciente extends javax.swing.JFrame {
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         btSalvar.setText("SALVAR");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/leave.png"))); // NOI18N
         btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new-file30px.png"))); // NOI18N
         btNovo.setText("NOVO");
@@ -285,49 +307,139 @@ public class JFPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_rbMasculinoActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        // TODO add your handling code here:
+        this.habilitar(true);
+        this.limpar();
     }//GEN-LAST:event_btNovoActionPerformed
-
+    
+    File arquivoFoto = null;
     private void btUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUploadActionPerformed
-        // TODO add your handling code here:
+        // abre uma janela para procurar foto
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setDialogTitle("Escolha uma foto");
+        filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        //apos selecionar o arquivo
+        int returnval = filechooser.showOpenDialog(this);
+        if (returnval==JFileChooser.APPROVE_OPTION){
+            
+            arquivoFoto = filechooser.getSelectedFile();
+            BufferedImage bi;
+            
+            try {
+                bi = ImageIO.read(arquivoFoto);
+                JLabel imgLabel = new JLabel(new ImageIcon(bi));
+                imgLabel.setSize(150,150);
+                paFoto.add(imgLabel);
+                paFoto.revalidate();
+                paFoto.repaint();
+            } catch(IOException e) {
+                System.out.println("Houve um erro ao carregar a foto");
+                System.out.println(e);
+            }    
+            
+            this.pack();
+        }
     }//GEN-LAST:event_btUploadActionPerformed
 
-    public void hablitar (boolean valor){
-        //txtNome.setEnabled(valor);
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);
+        //this.habilitar(false);
+    }//GEN-LAST:event_btSairActionPerformed
+    
+    String CAMINHO_DAS_FOTOS = "A:/pacientes/fotos";
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar ?", "Sistema Consultorio Médicos", 1);
+        if(valor==0){
+            // recuperando dados inseridos
+            Paciente paciente = new Paciente();
+            paciente.setNome(txtNome.getText());
+            paciente.setCpf(txtCPF.getText());
+            // tratando a data
+            try {
+                SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy");
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(data.parse(txtData.getText()));
+                paciente.setData_nascimento(cal);
+            } catch (ParseException e) {
+                System.out.println(e);
+            }
+            
+            if(rbMasculino.isSelected())
+                paciente.setSexo("M");
+            else if (rbFeminino.isSelected())
+                paciente.setSexo("F");
+            
+            paciente.setEndereco(txtEndereco.getText());
+            paciente.setTelefone(txtTelefone.getText());
+            paciente.setPlano_saude(cbPlanoSaude.getSelectedItem().toString());
+            
+            // movemos a foto para um especifico caminho
+            String novoNomeFoto = txtNome.getText().replaceAll(" ","") + txtNome.getText().hashCode()+ ".png";
+            File urlFoto = new File( CAMINHO_DAS_FOTOS + novoNomeFoto);
+            try { 
+                copiarArquivo(arquivoFoto, urlFoto); // metodo para copirar arquivo (origem, destino)
+            } catch (IOException ex){
+                System.out.println("Não foi possivel mover o arquivo, " + ex );
+            }
+            paciente.setFoto(urlFoto.getPath());
+            paciente.setObservacoes(txtObservacoes.getText());
+            // gravamos os dados
+            //IPacienteDAO dao = new IPacienteDAO();
+            //dao.adiciona(paciente);
+            JOptionPane.showMessageDialog(null, "Os dados foram gravados");
+            //limpa formulario
+            limpar();
+            habilitar(false);
+        }       
+    }//GEN-LAST:event_btSalvarActionPerformed
+    
+    private void copiarArquivo (File origem, File destino){
+        InputStream in = new FileInputStream(origem);
+        OutputStream out = new FileOutputStream(destino);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0){
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
     }
     
-    public void limpar (){
+    private void habilitar (boolean valor){
+        txtNome.setEnabled(valor);
+        txtCPF.setEnabled(valor);
+        txtData.setEnabled(valor);
+        txtEndereco.setEnabled(valor);
+        txtObservacoes.setEnabled(valor);
+        txtTelefone.setEnabled(valor);
+        rbFeminino.setEnabled(valor);
+        rbMasculino.setEnabled(valor);
+        btUpload.setEnabled(valor);
+        cbPlanoSaude.setEnabled(valor);
+        btSalvar.setEnabled(valor);
+        btSair.setEnabled(valor);
+    }
+    
+    private void limpar (){
         txtNome.setText("");
+        txtCPF.setText("");
+        txtData.setText("");
+        txtEndereco.setText("");
+        txtObservacoes.setText("");
+        txtTelefone.setText("");
+        cbPlanoSaude.setSelectedIndex(0);
+        rbFeminino.setSelected(false);
+        rbMasculino.setSelected(false);
     }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JFPaciente().setVisible(true);
+                //JFPaciente.frameOpened(habilitar(false));
             }
         });
     }
