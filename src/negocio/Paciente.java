@@ -105,4 +105,10 @@ public class Paciente {
     public void setData_cadastro(Calendar data_cadastro) {
         this.data_cadastro = data_cadastro;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"idPaciente\":" + idPaciente + ", \"nome\":" + '\"'+ nome + '\"' + ", \"cpf\":" + '\"' + cpf + '\"' + ", \"data_nascimento\":" + '\"' + data_nascimento.getTime() + '\"' + ", \"sexo\":" + '\"' + sexo + '\"' + ", \"endereco\":" + '\"' + endereco + '\"' + ", \"telefone\":" + '\"' + telefone + '\"' + ", \"foto\":" + '\"' + foto + '\"' + ", \"plano_saude\":" + '\"' + plano_saude + '\"' + ", \"observacoes\":" + '\"' + observacoes + '\"' + ", \"data_cadastro\":" + '\"' + data_cadastro + '\"' + "}";
+    }
+    
 }

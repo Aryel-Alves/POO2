@@ -1,10 +1,13 @@
 package negocio;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -345,7 +348,6 @@ public class JFPaciente extends javax.swing.JFrame {
         //this.habilitar(false);
     }//GEN-LAST:event_btSairActionPerformed
     
-    String CAMINHO_DAS_FOTOS = "A:/pacientes/fotos";
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar ?", "Sistema Consultorio Médicos", 1);
         if(valor==0){
@@ -358,6 +360,7 @@ public class JFPaciente extends javax.swing.JFrame {
                 SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(data.parse(txtData.getText()));
+                System.out.println(data.parse(txtData.getText()));
                 paciente.setData_nascimento(cal);
             } catch (ParseException e) {
                 System.out.println(e);
@@ -374,7 +377,7 @@ public class JFPaciente extends javax.swing.JFrame {
             
             // movemos a foto para um especifico caminho
             String novoNomeFoto = txtNome.getText().replaceAll(" ","") + txtNome.getText().hashCode()+ ".png";
-            File urlFoto = new File( CAMINHO_DAS_FOTOS + novoNomeFoto);
+            File urlFoto = new File( PacienteDAO.CAMINHO_ARQUIVOS + novoNomeFoto);
             try { 
                 copiarArquivo(arquivoFoto, urlFoto); // metodo para copirar arquivo (origem, destino)
             } catch (IOException ex){
@@ -382,9 +385,11 @@ public class JFPaciente extends javax.swing.JFrame {
             }
             paciente.setFoto(urlFoto.getPath());
             paciente.setObservacoes(txtObservacoes.getText());
+            
             // gravamos os dados
-            //IPacienteDAO dao = new IPacienteDAO();
-            //dao.adiciona(paciente);
+            PacienteDAO dao = new PacienteDAO();
+            dao.adiciona(paciente);
+            
             JOptionPane.showMessageDialog(null, "Os dados foram gravados");
             //limpa formulario
             limpar();
@@ -392,7 +397,7 @@ public class JFPaciente extends javax.swing.JFrame {
         }       
     }//GEN-LAST:event_btSalvarActionPerformed
     
-    private void copiarArquivo (File origem, File destino){
+    private void copiarArquivo (File origem, File destino) throws IOException {
         InputStream in = new FileInputStream(origem);
         OutputStream out = new FileOutputStream(destino);
         byte[] buf = new byte[1024];
@@ -429,6 +434,19 @@ public class JFPaciente extends javax.swing.JFrame {
         cbPlanoSaude.setSelectedIndex(0);
         rbFeminino.setSelected(false);
         rbMasculino.setSelected(false);
+        
+        //Get the components in the panel
+        Component[] componentList = paFoto.getComponents();
+
+        //Loop through the components
+        for(Component c : componentList){
+            if(c instanceof JLabel){
+                paFoto.remove(c);
+            }
+        }
+        //IMPORTANT
+        paFoto.revalidate();
+        paFoto  .repaint();
     }
     
     public static void main(String args[]) {
@@ -442,6 +460,7 @@ public class JFPaciente extends javax.swing.JFrame {
                 //JFPaciente.frameOpened(habilitar(false));
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
