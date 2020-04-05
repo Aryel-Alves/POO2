@@ -5,7 +5,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,26 +18,36 @@ import java.util.logging.Logger;
  * @author Aryel
  */
 public class PacienteDAO implements IPacienteDAO {
+    private Connection connection;
     public static String CAMINHO_ARQUIVOS = System.getProperty("user.home") + "/Desktop/";
     
+    public PacienteDAO(){
+        this.connection = new ConFactory().getConnection();
+    }
+    
     @Override
-    public void adiciona(Paciente um_paciente)  {
-        String nomeDoArquivo = um_paciente.getNome().replaceAll(" ","") + um_paciente.getNome().hashCode()+ ".json";
-        File arquivo = new File( CAMINHO_ARQUIVOS + nomeDoArquivo );
-
+    public void adiciona(Paciente paciente)  {
+        String sql = "insert into paciente " + 
+                "(nome, cpf, data_nascimento, sexo, endereco, telefone, foto, plano_saude, observacoes, data_cadastro)" +
+                " values (?,?,?,?,?,?,?,?,?,now())";
+        
         try {
-            if (!arquivo.exists()){
-                arquivo.createNewFile();
-            }
+            PreparedStatement stmt = connection.prepareStatement(sql);
             
-            FileWriter fw = new FileWriter( arquivo );
-            BufferedWriter bw = new BufferedWriter( fw );
-            bw.write( um_paciente.toString() );
-
-            bw.close();
-            fw.close();     
-        } catch (IOException ex) {
-            Logger.getLogger(PacienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            stmt.setString(1, paciente.getNome());
+            stmt.setString(2, paciente.getCpf());
+            stmt.setDate(3, (java.sql.Date) new java.sql.Date(paciente.getData_nascimento().getTimeInMillis()));
+            stmt.setString(4, paciente.getSexo());
+            stmt.setString(5, paciente.getEndereco());
+            stmt.setString(6, paciente.getTelefone());
+            stmt.setString(7, paciente.getFoto());
+            stmt.setString(8, paciente.getPlano_saude());
+            stmt.setString(9, paciente.getObservacoes());
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
         }
     }
 
