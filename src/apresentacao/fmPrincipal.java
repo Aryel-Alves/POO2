@@ -37,7 +37,7 @@ public class fmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
+        btCadastrarPaciente = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
@@ -67,17 +67,17 @@ public class fmPrincipal extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/People-32.png"))); // NOI18N
-        jButton1.setToolTipText("Cadastrar Paciente");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/People-32.png"))); // NOI18N
+        btCadastrarPaciente.setToolTipText("Cadastrar Paciente");
+        btCadastrarPaciente.setFocusable(false);
+        btCadastrarPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCadastrarPaciente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btCadastrarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCadastrarPacienteActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btCadastrarPaciente);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Exit-32.png"))); // NOI18N
         btSair.setToolTipText("Sair");
@@ -217,16 +217,20 @@ public class fmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        fmPaciente paciente = new fmPaciente();
+        jDesktopPane1.add(paciente);
+        paciente.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarPacienteActionPerformed
+        fmPaciente paciente = new fmPaciente();
+        jDesktopPane1.add(paciente);
+        paciente.setVisible(true);
+    }//GEN-LAST:event_btCadastrarPacienteActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sistema de Prontuarios Médicos", 1);
@@ -304,8 +308,8 @@ public class fmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCadastrarPaciente;
     private javax.swing.JButton btSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

@@ -1,7 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package apresentacao;
 
-import negocio.Paciente;
-import persistencia.PacienteDAO;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,17 +18,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import negocio.Paciente;
+import persistencia.PacienteDAO;
 
 /**
  *
- * @author Aryel
+ * @author aryel.sa
  */
-public class JFPaciente extends javax.swing.JFrame {
 
-    public JFPaciente() {
+
+public class fmPaciente extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form fmPaciente2
+     */
+    public fmPaciente() {
         initComponents();
     }
 
@@ -65,7 +75,8 @@ public class JFPaciente extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "dados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
@@ -140,7 +151,7 @@ public class JFPaciente extends javax.swing.JFrame {
         paFoto.setLayout(paFotoLayout);
         paFotoLayout.setHorizontalGroup(
             paFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
         paFotoLayout.setVerticalGroup(
             paFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,15 +190,16 @@ public class JFPaciente extends javax.swing.JFrame {
                             .addComponent(txtEndereco)
                             .addComponent(cbPlanoSaude, 0, 0, Short.MAX_VALUE)
                             .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(33, 33, 33))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(paFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btUpload, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                                .addComponent(btUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(paFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -311,12 +323,6 @@ public class JFPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbMasculinoActionPerformed
 
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        this.habilitar(true);
-        this.limpar();
-    }//GEN-LAST:event_btNovoActionPerformed
-    
-    File arquivoFoto = null;
     private void btUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUploadActionPerformed
         // abre uma janela para procurar foto
         JFileChooser filechooser = new JFileChooser();
@@ -325,10 +331,10 @@ public class JFPaciente extends javax.swing.JFrame {
         //apos selecionar o arquivo
         int returnval = filechooser.showOpenDialog(this);
         if (returnval==JFileChooser.APPROVE_OPTION){
-            
+
             arquivoFoto = filechooser.getSelectedFile();
             BufferedImage bi;
-            
+
             try {
                 bi = ImageIO.read(arquivoFoto);
                 JLabel imgLabel = new JLabel(new ImageIcon(bi));
@@ -339,17 +345,13 @@ public class JFPaciente extends javax.swing.JFrame {
             } catch(IOException e) {
                 System.out.println("Houve um erro ao carregar a foto");
                 System.out.println(e);
-            }    
-            
+            }
+
             this.pack();
         }
     }//GEN-LAST:event_btUploadActionPerformed
 
-    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        System.exit(0);
-        //this.habilitar(false);
-    }//GEN-LAST:event_btSairActionPerformed
-    
+    File arquivoFoto = null;
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar ?", "Sistema Consultorio Médicos", 1);
         if(valor==0){
@@ -367,38 +369,48 @@ public class JFPaciente extends javax.swing.JFrame {
             } catch (ParseException e) {
                 System.out.println(e);
             }
-            
+
             if(rbMasculino.isSelected())
-                paciente.setSexo("M");
+            paciente.setSexo("M");
             else if (rbFeminino.isSelected())
-                paciente.setSexo("F");
-            
+            paciente.setSexo("F");
+
             paciente.setEndereco(txtEndereco.getText());
             paciente.setTelefone(txtTelefone.getText());
             paciente.setPlano_saude(cbPlanoSaude.getSelectedItem().toString());
-            
+
             // movemos a foto para um especifico caminho
             String novoNomeFoto = txtNome.getText().replaceAll(" ","") + txtNome.getText().hashCode()+ ".png";
             File urlFoto = new File( PacienteDAO.CAMINHO_ARQUIVOS + novoNomeFoto);
-            try { 
+            try {
                 copiarArquivo(arquivoFoto, urlFoto); // metodo para copirar arquivo (origem, destino)
             } catch (IOException ex){
                 System.out.println("Não foi possivel mover o arquivo, " + ex );
             }
             paciente.setFoto(urlFoto.getPath());
             paciente.setObservacoes(txtObservacoes.getText());
-            
+
             // gravamos os dados
             PacienteDAO dao = new PacienteDAO();
             dao.adiciona(paciente);
-            
+
             JOptionPane.showMessageDialog(null, "Os dados foram gravados");
             //limpa formulario
             limpar();
             habilitar(false);
-        }       
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
-    
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);
+        //this.habilitar(false);
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        this.habilitar(true);
+        this.limpar();
+    }//GEN-LAST:event_btNovoActionPerformed
+
     private void copiarArquivo (File origem, File destino) throws IOException {
         InputStream in = new FileInputStream(origem);
         OutputStream out = new FileOutputStream(destino);
@@ -449,20 +461,6 @@ public class JFPaciente extends javax.swing.JFrame {
         //IMPORTANT
         paFoto.revalidate();
         paFoto  .repaint();
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFPaciente().setVisible(true);
-                //JFPaciente.frameOpened(habilitar(false));
-            }
-        });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
