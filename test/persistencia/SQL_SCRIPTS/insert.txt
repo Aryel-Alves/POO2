@@ -1,0 +1,4 @@
+use dbconsultorio;
+
+INSERT INTO psicologo(nome, cpf, crp, telefone, login, senha)
+VALUES ('Psicologo1', '12345678912', '123456', '(21)12345678', 'user', 'user123')

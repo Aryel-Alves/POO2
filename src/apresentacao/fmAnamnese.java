@@ -90,6 +90,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         txtValorSessao = new javax.swing.JTextField();
         cbPeriodicidade = new javax.swing.JComboBox<>();
+        txtNumeroSessoes = new javax.swing.JTextField();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
@@ -407,17 +408,20 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                     .addComponent(asdasdasd3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cbPeriodicidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                        .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel17)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
@@ -430,7 +434,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asdasdasd3))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Outros", jPanel4);
@@ -566,6 +570,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtInfancia;
     private javax.swing.JTextArea txtLinguagem;
     private javax.swing.JTextArea txtMedicamentos;
+    private javax.swing.JTextField txtNumeroSessoes;
     private javax.swing.JTextArea txtQueixas;
     private javax.swing.JTextArea txtRotina;
     private javax.swing.JTextArea txtSintomas;

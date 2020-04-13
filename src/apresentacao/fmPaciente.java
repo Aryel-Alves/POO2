@@ -77,6 +77,23 @@ public class fmPaciente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "dados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
@@ -135,7 +152,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
         txtObservacoes.setRows(5);
         jScrollPane1.setViewportView(txtObservacoes);
 
-        btUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/upload.png"))); // NOI18N
+        btUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Up_32.png"))); // NOI18N
         btUpload.setText("Upload");
         btUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +267,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Cadastro de Pacientes");
 
-        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Save_32.png"))); // NOI18N
         btSalvar.setText("SALVAR");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +275,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
             }
         });
 
-        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/leave.png"))); // NOI18N
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Cancel-32.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +283,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
             }
         });
 
-        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new-file30px.png"))); // NOI18N
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new-32.png"))); // NOI18N
         btNovo.setText("NOVO");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +310,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
                 .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
         );
@@ -378,16 +395,19 @@ public class fmPaciente extends javax.swing.JInternalFrame {
             paciente.setEndereco(txtEndereco.getText());
             paciente.setTelefone(txtTelefone.getText());
             paciente.setPlano_saude(cbPlanoSaude.getSelectedItem().toString());
-
-            // movemos a foto para um especifico caminho
-            String novoNomeFoto = txtNome.getText().replaceAll(" ","") + txtNome.getText().hashCode()+ ".png";
-            File urlFoto = new File( PacienteDAO.CAMINHO_ARQUIVOS + novoNomeFoto);
-            try {
-                copiarArquivo(arquivoFoto, urlFoto); // metodo para copirar arquivo (origem, destino)
-            } catch (IOException ex){
-                System.out.println("Não foi possivel mover o arquivo, " + ex );
+            
+            if(arquivoFoto != null){
+                // movemos a foto para um especifico caminho
+                String novoNomeFoto = txtNome.getText().replaceAll(" ","") + txtNome.getText().hashCode()+ ".png";
+                File urlFoto = new File( PacienteDAO.CAMINHO_ARQUIVOS + novoNomeFoto);
+                try {
+                    copiarArquivo(arquivoFoto, urlFoto); // metodo para copirar arquivo (origem, destino)
+                } catch (IOException ex){
+                    System.out.println("Não foi possivel mover o arquivo, " + ex );
+                }
+                paciente.setFoto(urlFoto.getPath());
             }
-            paciente.setFoto(urlFoto.getPath());
+            
             paciente.setObservacoes(txtObservacoes.getText());
 
             // gravamos os dados
@@ -402,14 +422,18 @@ public class fmPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        System.exit(0);
-        //this.habilitar(false);
+        this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         this.habilitar(true);
         this.limpar();
     }//GEN-LAST:event_btNovoActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        this.habilitar(false);
+        this.limpar();
+    }//GEN-LAST:event_formInternalFrameOpened
 
     private void copiarArquivo (File origem, File destino) throws IOException {
         InputStream in = new FileInputStream(origem);

@@ -7,9 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,9 +67,40 @@ public class PacienteDAO implements IPacienteDAO {
 
     @Override
     public ArrayList<Paciente> listarTodos() {
-        //File arquivo = new File( CAMINHO_ARQUIVOS );
-        //File [] arquivos = arquivo.listFiles();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            List<Paciente> pacientes;
+            pacientes = new ArrayList<>();
+            PreparedStatement stmt = (PreparedStatement) this.connection;
+            connection.prepareStatement("select * from paciente");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("idPaciente"));
+                paciente.setNome(rs.getString("nome"));
+                paciente.setCpf(rs.getString("cpf"));
+                
+                Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("data_nascimento"));
+                paciente.setData_nascimento(data);
+                
+                paciente.setSexo(rs.getString("sexo"));
+                paciente.setEndereco(rs.getString("endereco"));           
+                paciente.setTelefone(rs.getString("telefone"));
+                paciente.setFoto(rs.getString("foto"));
+                paciente.setPlano_saude(rs.getString("plano_saude"));
+                paciente.setObservacoes(rs.getString("observacoes"));
+                data.setTime(rs.getDate("data_cadastro"));
+                paciente.setData_cadastro(data);
+                
+                pacientes.add(paciente);
+            }
+            rs.close();
+            stmt.close();
+            return (ArrayList<Paciente>) pacientes;
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

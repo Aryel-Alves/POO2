@@ -8,6 +8,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameOpened" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -42,7 +45,7 @@
               <Component id="btNovo" min="-2" pref="107" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="btSalvar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
               <Component id="btSair" min="-2" pref="98" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
           </Group>
@@ -308,7 +311,7 @@
         <Component class="javax.swing.JButton" name="btUpload">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/upload.png"/>
+              <Image iconType="3" name="/recursos/Up_32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Upload"/>
           </Properties>
@@ -356,7 +359,7 @@
     <Component class="javax.swing.JButton" name="btSalvar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/recursos/save.png"/>
+          <Image iconType="3" name="/recursos/Save_32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="SALVAR"/>
       </Properties>
@@ -367,7 +370,7 @@
     <Component class="javax.swing.JButton" name="btSair">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/recursos/leave.png"/>
+          <Image iconType="3" name="/recursos/Cancel-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
@@ -378,7 +381,7 @@
     <Component class="javax.swing.JButton" name="btNovo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/recursos/new-file30px.png"/>
+          <Image iconType="3" name="/recursos/new-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="NOVO"/>
       </Properties>

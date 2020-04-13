@@ -1,0 +1,60 @@
+create table if not exists paciente (
+    idPaciente int unsigned not null AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(60),
+    cpf varchar(45),
+    data_nascimento DATE,
+    sexo char(1),
+    endereco varchar(100),
+    telefone varchar(20),
+    foto varchar(100),
+    plano_saude varchar(50),
+    observacoes text,
+    data_cadastro date
+) ENGINE=MyISAM DEFAULT Charset=utf8;
+
+create table if not exists psicologo (
+    idPsicologo int unsigned not null AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(60),
+    cpf varchar(11),
+    crp varchar(20),
+    telefone varchar(20),
+    login varchar(20) UNIQUE,
+    senha varchar(20)
+) ENGINE=MyISAM DEFAULT Charset=utf8;
+
+create table if not EXISTS anamnese (
+	idAnamnese int unsigned not null auto_increment PRIMARY KEY,
+    queixas text,
+    sintomas text,
+    tratamentos_anteriores text,
+    medicamentos text,
+    infancia text,
+    rotina text,
+    vicios text,
+    trabalho text,
+    historico_familiar text,
+    comportamento text,
+    linguagem text,
+    humor text,
+    hipotese_diagnostica text,
+    observacoes text,
+    numero_sessoes int,
+    valor_sessao decimal,
+    periodicidade varchar(20),
+    idPaciente int not null,
+    idPsicologo int not null,
+    FOREIGN key (idPaciente) REFERENCES paciente(idPaciente),
+    FOREIGN key (idPsicologo) REFERENCES paciente(idPsicologo)
+)ENGINE=MyISAM DEFAULT charset=utf8
+
+create table if not EXISTS sessao (
+	idSessao int unsigned not null AUTO_INCREMENT PRIMARY key,
+    data datetime,
+    queixas_paciente text,
+    plano_tratamento text,
+    diagnostico_final text,
+    evolucao int,
+    pago bit(1),
+    idAnamnese int not null,
+    FOREIGN key (idAnamnese) REFERENCES anamnese(idAnamnese)
+)Engine=MyISAM DEFAULT Charset=utf8
