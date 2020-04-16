@@ -48,6 +48,7 @@ public class PacienteDAO implements IPacienteDAO {
             stmt.setString(9, paciente.getObservacoes());
             
             stmt.execute();
+            System.out.println("PACIENTE "+ paciente.getNome() + " CADASTRADO!");
             stmt.close();
         } catch (SQLException e){
             throw new RuntimeException(e);

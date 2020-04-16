@@ -381,7 +381,7 @@ public class fmPaciente extends javax.swing.JInternalFrame {
                 SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(data.parse(txtData.getText()));
-                System.out.println(data.parse(txtData.getText()));
+                //System.out.println(data.parse(txtData.getText()));
                 paciente.setData_nascimento(cal);
             } catch (ParseException e) {
                 System.out.println(e);
