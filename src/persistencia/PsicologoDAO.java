@@ -32,7 +32,7 @@ public class PsicologoDAO implements IPsicologoDAO {
                 " values (?,?,?,?,?,?)";
         
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
             
             stmt.setString(1, psicologo.getNome());
             stmt.setString(2, psicologo.getCpf());
@@ -65,8 +65,7 @@ public class PsicologoDAO implements IPsicologoDAO {
         try{
             List<Psicologo> psicologos;
             psicologos = new ArrayList<>();
-            PreparedStatement stmt = (PreparedStatement) this.connection;
-            connection.prepareStatement("select * from psicologo");
+            PreparedStatement stmt = this.connection.prepareStatement("select * from psicologo");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()){

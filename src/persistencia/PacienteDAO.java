@@ -35,7 +35,7 @@ public class PacienteDAO implements IPacienteDAO {
                 " values (?,?,?,?,?,?,?,?,?,now())";
         
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
             
             stmt.setString(1, paciente.getNome());
             stmt.setString(2, paciente.getCpf());
@@ -71,8 +71,7 @@ public class PacienteDAO implements IPacienteDAO {
         try{
             List<Paciente> pacientes;
             pacientes = new ArrayList<>();
-            PreparedStatement stmt = (PreparedStatement) this.connection;
-            connection.prepareStatement("select * from paciente");
+            PreparedStatement stmt = this.connection.prepareStatement("select * from paciente");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()){

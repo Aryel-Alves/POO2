@@ -5,11 +5,14 @@
  */
 package apresentacao;
 
+import persistencia.AnamneseDAO;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import negocio.Anamnese;
 import negocio.Paciente;
 import negocio.Psicologo;
+import persistencia.IAnamneseDAO;
 import persistencia.IPacienteDAO;
 import persistencia.IPsicologoDAO;
 import persistencia.PacienteDAO;
@@ -93,15 +96,14 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         txtComportamento = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane15 = new javax.swing.JScrollPane();
-        txtHipoteseDiagnosticada1 = new javax.swing.JTextArea();
+        txtObservacoes = new javax.swing.JTextArea();
         asdasdasd3 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         txtValorSessao = new javax.swing.JTextField();
         cbPeriodicidade = new javax.swing.JComboBox<>();
-        txtNumeroSessoes = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        intNumeroSessoes = new javax.swing.JSpinner();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
@@ -403,9 +405,9 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Comportamento", jPanel3);
 
-        txtHipoteseDiagnosticada1.setColumns(20);
-        txtHipoteseDiagnosticada1.setRows(5);
-        jScrollPane15.setViewportView(txtHipoteseDiagnosticada1);
+        txtObservacoes.setColumns(20);
+        txtObservacoes.setRows(5);
+        jScrollPane15.setViewportView(txtObservacoes);
 
         asdasdasd3.setText("Observações:");
 
@@ -415,13 +417,19 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
 
         jLabel19.setText("Periodicidade:");
 
+        txtValorSessao.setText("0");
         txtValorSessao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorSessaoActionPerformed(evt);
             }
         });
 
-        cbPeriodicidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbPeriodicidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Quinzenal", "Mensal", "Trimestral", "Semestral" }));
+        cbPeriodicidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPeriodicidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -436,29 +444,21 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                     .addComponent(asdasdasd3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbPeriodicidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                            .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(intNumeroSessoes, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbPeriodicidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
+                        .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(intNumeroSessoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtValorSessao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -480,6 +480,11 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Save_32.png"))); // NOI18N
         btSalvar.setText("SALVAR");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Cancel-32.png"))); // NOI18N
         btSair.setText("SAIR");
@@ -498,8 +503,8 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbPacientes, 0, 133, Short.MAX_VALUE)
-                            .addComponent(cbPsicologos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbPsicologos, 0, 307, Short.MAX_VALUE)
+                            .addComponent(cbPacientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -530,7 +535,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                     .addComponent(cbPsicologos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btNovo)
@@ -571,6 +576,48 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja salvar?", "Sistema de Consultorio Médicos", 1);
+        
+        if(valor == 0){
+            
+            int idpaciente = Integer.parseInt(cbPacientes.getSelectedItem().toString().split(" : ")[0]);
+            int idpsicologo = Integer.parseInt(cbPsicologos.getSelectedItem().toString().split(" : ")[0]);
+            
+            Anamnese anamnese = new Anamnese();
+            
+            anamnese.setQueixas(txtQueixas.getText());
+            anamnese.setSintomas(txtSintomas.getText());
+            anamnese.setTratamentos_anteriores(txtTratamentosAnteriores.getText());
+            anamnese.setMedicamentos(txtMedicamentos.getText());
+            anamnese.setInfancia(txtInfancia.getText());
+            anamnese.setRotina(txtRotina.getText());
+            anamnese.setVicios(txtVicios.getText());
+            anamnese.setHobbies(txtHobbies.getText());
+            anamnese.setTrabalho(txtTrabalho.getText());
+            anamnese.setHistorico_familiar(txtHistoricoFamiliar.getText());
+            anamnese.setComportamento(txtComportamento.getText());
+            anamnese.setLinguagem(txtLinguagem.getText());
+            anamnese.setHumor(txtHumor.getText());
+            anamnese.setHipotese_diagnosticada(txtHipoteseDiagnosticada.getText());
+            anamnese.setObservacoes(txtObservacoes.getText());
+            anamnese.setNumero_sessoes((Integer) intNumeroSessoes.getValue());
+            anamnese.setValor_sessao(Integer.parseInt(txtValorSessao.getText()));
+            anamnese.setPeriodicidade(cbPeriodicidade.getSelectedItem().toString());
+            anamnese.setIdPaciente(idpaciente);
+            anamnese.setIdPsicologo(idpsicologo);
+            
+            IAnamneseDAO dao = new AnamneseDAO();
+            dao.adiciona(anamnese);
+            JOptionPane.showMessageDialog(null, "Os Dados foram gravados!");
+            
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void cbPeriodicidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodicidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPeriodicidadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel asdasdasd;
@@ -583,6 +630,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbPacientes;
     private javax.swing.JComboBox<String> cbPeriodicidade;
     private javax.swing.JComboBox<String> cbPsicologos;
+    private javax.swing.JSpinner intNumeroSessoes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -622,18 +670,16 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea txtComportamento;
     private javax.swing.JTextArea txtHipoteseDiagnosticada;
-    private javax.swing.JTextArea txtHipoteseDiagnosticada1;
     private javax.swing.JTextArea txtHistoricoFamiliar;
     private javax.swing.JTextArea txtHobbies;
     private javax.swing.JTextArea txtHumor;
     private javax.swing.JTextArea txtInfancia;
     private javax.swing.JTextArea txtLinguagem;
     private javax.swing.JTextArea txtMedicamentos;
-    private javax.swing.JTextField txtNumeroSessoes;
+    private javax.swing.JTextArea txtObservacoes;
     private javax.swing.JTextArea txtQueixas;
     private javax.swing.JTextArea txtRotina;
     private javax.swing.JTextArea txtSintomas;

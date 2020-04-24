@@ -142,7 +142,7 @@ public class fmPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Anamnese");
+        jMenuItem2.setText("Anamneses");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -168,6 +168,11 @@ public class fmPrincipal extends javax.swing.JFrame {
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("Cadastrar Psicólogo");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -273,7 +278,6 @@ public class fmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuAjudaActionPerformed
 
     private void jMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSobreActionPerformed
-        System.out.println("apresentacao.fmPrincipal.jMenuSobreActionPerformed()");
         fmSobre sobre = new fmSobre();
         jDesktopPane1.add(sobre);
         sobre.setVisible(true);
@@ -282,6 +286,12 @@ public class fmPrincipal extends javax.swing.JFrame {
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        fmPsicologo psicologo = new fmPsicologo();
+        jDesktopPane1.add(psicologo);
+        psicologo.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
