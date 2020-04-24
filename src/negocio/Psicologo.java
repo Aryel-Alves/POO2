@@ -17,7 +17,11 @@ public class Psicologo {
     public int getIdPsicologo() {
         return idPsicologo;
     }
-
+    
+    public void setIdPsicologo(int id) {
+        this.idPsicologo = id;
+    }
+    
     public String getNome() {
         return nome;
     }

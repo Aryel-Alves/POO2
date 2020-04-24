@@ -126,6 +126,11 @@ public class fmPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Cadastros");
         jMenu2.setToolTipText("");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Pacientes");
@@ -223,7 +228,9 @@ public class fmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        fmAnamnese anamnese = new fmAnamnese();
+        jDesktopPane1.add(anamnese);
+        anamnese.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void btCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarPacienteActionPerformed
@@ -271,6 +278,10 @@ public class fmPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(sobre);
         sobre.setVisible(true);
     }//GEN-LAST:event_jMenuSobreActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
 
     /**
      * @param args the command line arguments

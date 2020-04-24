@@ -5,6 +5,16 @@
  */
 package apresentacao;
 
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import negocio.Paciente;
+import negocio.Psicologo;
+import persistencia.IPacienteDAO;
+import persistencia.IPsicologoDAO;
+import persistencia.PacienteDAO;
+import persistencia.PsicologoDAO;
+
 /**
  *
  * @author aryel.sa
@@ -91,6 +101,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         txtValorSessao = new javax.swing.JTextField();
         cbPeriodicidade = new javax.swing.JComboBox<>();
         txtNumeroSessoes = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
@@ -98,6 +109,23 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro Anamnese");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Cadastro de Anamnese");
@@ -408,21 +436,29 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                     .addComponent(asdasdasd3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cbPeriodicidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                        .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbPeriodicidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
+                            .addComponent(txtValorSessao, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtNumeroSessoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtValorSessao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -434,7 +470,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asdasdasd3))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Outros", jPanel4);
@@ -509,6 +545,32 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorSessaoActionPerformed
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        try {
+            IPacienteDAO dao = new PacienteDAO();
+            List<Paciente> lista = dao.listarTodos();
+            
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+            for(Paciente paciente: lista){
+                modelo.addElement(paciente.getIdPaciente() + " : " + paciente.getNome());
+            }
+            cbPacientes.setModel(modelo);
+            
+            IPsicologoDAO dao2 = new PsicologoDAO();
+            List<Psicologo> lista2 = dao2.listarTodos();
+            
+            DefaultComboBoxModel modelo2 = new DefaultComboBoxModel();
+            for(Psicologo psicologo: lista2){
+                modelo2.addElement(psicologo.getIdPsicologo() + " : " + psicologo.getNome());
+            }
+            cbPsicologos.setModel(modelo2);
+        }
+        catch (Exception error){
+            System.out.println(error.toString());
+            JOptionPane.showMessageDialog(null, "Houve um erro ao carregar os dados...");
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel asdasdasd;
@@ -560,6 +622,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea txtComportamento;
     private javax.swing.JTextArea txtHipoteseDiagnosticada;
