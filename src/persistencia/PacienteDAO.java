@@ -1,20 +1,13 @@
 package persistencia;
 
 import negocio.Paciente;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -95,8 +88,10 @@ public class PacienteDAO implements IPacienteDAO {
                 
                 pacientes.add(paciente);
             }
+            
             rs.close();
             stmt.close();
+            
             return (ArrayList<Paciente>) pacientes;
         } catch(SQLException e){
             throw new RuntimeException(e);

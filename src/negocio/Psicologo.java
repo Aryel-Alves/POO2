@@ -1,5 +1,7 @@
 package negocio;
 
+import persistencia.PsicologoDAO;
+
 /**
  *
  * @author Aryel
@@ -68,4 +70,9 @@ public class Psicologo {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    /*public static boolean fazLogin(String login, String senha){
+        PsicologoDAO dao = new PsicologoDAO();
+        return dao.checkLogin(login, senha);
+    }*/
 }

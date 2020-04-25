@@ -7,6 +7,8 @@ package apresentacao;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import negocio.Psicologo;
+import persistencia.PsicologoDAO;
 
 /**
  *
@@ -145,7 +147,9 @@ public class fmLogin extends javax.swing.JFrame {
         String usuarioDigitado = txtUsuario.getText();
         String senhaDigitada = new String(txtSenha.getPassword());
         
-        if(usuarioDefault.equals(usuarioDigitado) && senhaDefault.equals(senhaDigitada)){
+        PsicologoDAO dao = new PsicologoDAO();
+         
+        if(usuarioDefault.equals(usuarioDigitado) && senhaDefault.equals(senhaDigitada) || dao.checkLogin(usuarioDigitado, senhaDigitada)){
             fmPrincipal principal = new fmPrincipal();
             principal.setVisible(true);
             principal.setExtendedState(JFrame.MAXIMIZED_BOTH);

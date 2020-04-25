@@ -10,8 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import negocio.Psicologo;
 
 /**
@@ -91,5 +92,30 @@ public class PsicologoDAO implements IPsicologoDAO {
     @Override
     public Psicologo getByID(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public boolean checkLogin(String login, String senha){
+        boolean estaAutenticado = false;
+
+        try {
+
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM psicologo WHERE login = ? and senha = ?");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                estaAutenticado = true;
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PsicologoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+        return estaAutenticado;    
     }
 }

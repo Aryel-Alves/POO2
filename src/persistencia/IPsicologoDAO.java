@@ -11,4 +11,5 @@ public interface IPsicologoDAO {
     public void remove(int id);
     public ArrayList<Psicologo> listarTodos();
     public Psicologo getByID(int id);
+    public boolean checkLogin(String login, String senha);
 }
