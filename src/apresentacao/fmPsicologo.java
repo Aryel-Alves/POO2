@@ -13,15 +13,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
-import negocio.Paciente;
 import negocio.Psicologo;
 import persistencia.PacienteDAO;
 import persistencia.PsicologoDAO;
@@ -235,7 +231,7 @@ public class fmPsicologo extends javax.swing.JInternalFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Cadastro de Psicologos");
+        jLabel1.setText("Cadastro de Psicólogos");
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Save_32.png"))); // NOI18N
         btSalvar.setText("SALVAR");
@@ -416,7 +412,7 @@ public class fmPsicologo extends javax.swing.JInternalFrame {
         txtTelefone.setEnabled(valor);
         txtLogin.setEnabled(valor);
         txtSenha.setEnabled(valor);
-        btUpload.setEnabled(valor);
+        btUpload.setEnabled(false);
         btSalvar.setEnabled(valor);
         btSair.setEnabled(valor);
     }

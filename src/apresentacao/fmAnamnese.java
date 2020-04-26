@@ -130,7 +130,7 @@ public class fmAnamnese extends javax.swing.JInternalFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Anamnese");
+        jLabel1.setText("Cadastro de Anamneses");
 
         jLabel2.setText("Paciente:");
 
