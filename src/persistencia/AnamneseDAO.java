@@ -7,8 +7,10 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import negocio.Anamnese;
 
 /**
@@ -71,7 +73,46 @@ public class AnamneseDAO implements IAnamneseDAO {
 
     @Override
     public ArrayList<Anamnese> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            List<Anamnese> anameneses;
+            anameneses = new ArrayList<>();
+            PreparedStatement stmt = this.connection.prepareStatement("select * from anamnese");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                Anamnese anamnese = new Anamnese();
+                
+                anamnese.setIdAnamnese(rs.getInt("idAnamnese"));
+                anamnese.setQueixas(rs.getString("queixas"));
+                anamnese.setSintomas(rs.getString("sintomas"));
+                anamnese.setTratamentos_anteriores(rs.getString("tratamentos_anteriores"));
+                anamnese.setSintomas(rs.getString("medicamentos"));
+                anamnese.setSintomas(rs.getString("infancia"));
+                anamnese.setSintomas(rs.getString("rotina"));
+                anamnese.setSintomas(rs.getString("vicios"));
+                anamnese.setSintomas(rs.getString("trabalho"));
+                anamnese.setSintomas(rs.getString("historico_familiar"));
+                anamnese.setComportamento(rs.getString("comportamento"));
+                anamnese.setLinguagem(rs.getString("linguagem"));
+                anamnese.setHumor(rs.getString("humor"));
+                anamnese.setHipotese_diagnosticada(rs.getString("hipotese_diagnostica"));
+                anamnese.setObservacoes(rs.getString("observacoes"));
+                anamnese.setNumero_sessoes(rs.getInt("numero_sessoes"));
+                anamnese.setValor_sessao(rs.getInt("valor_sessao"));
+                anamnese.setPeriodicidade(rs.getString("periodicidade"));
+                anamnese.setIdPaciente(rs.getInt("idPaciente"));
+                anamnese.setIdPsicologo(rs.getInt("idPsicologo"));
+                
+                anameneses.add(anamnese);
+            }
+            
+            rs.close();
+            stmt.close();
+            
+            return (ArrayList<Anamnese>) anameneses;
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

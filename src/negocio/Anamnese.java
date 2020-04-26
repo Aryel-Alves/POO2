@@ -31,6 +31,10 @@ public class Anamnese {
     public int getIdAnamnese() {
         return idAnamnese;
     }
+    
+    public void setIdAnamnese(int idAnamnese) {
+        this.idAnamnese = idAnamnese;
+    }
 
     public String getQueixas() {
         return queixas;

@@ -5,17 +5,17 @@
  */
 package apresentacao;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import negocio.Anamnese;
+import negocio.Paciente;
 import negocio.Sessao;
+import persistencia.AnamneseDAO;
+import persistencia.IAnamneseDAO;
 import persistencia.SessaoDAO;
 
 /**
@@ -326,6 +326,22 @@ public class fmSessao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        try {
+            IAnamneseDAO dao = new AnamneseDAO();
+            List<Anamnese> lista = dao.listarTodos();
+            
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+            for(Anamnese anamnese: lista){
+                modelo.addElement(anamnese.getIdAnamnese());
+            }
+            cbIdAnamnese.setModel(modelo);
+            
+        }
+        catch (Exception error){
+            System.out.println(error.toString());
+            JOptionPane.showMessageDialog(null, "Houve um erro ao carregar os dados...");
+        }
+        
         this.habilitar(false);
         this.limpar();
     }//GEN-LAST:event_formInternalFrameOpened
